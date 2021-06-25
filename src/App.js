@@ -48,9 +48,15 @@ class App extends React.Component {
 
   componentDidMount() {
     const tempState = JSON.parse(localStorage.getItem('localState'));
+    
 
     if (tempState) {
-      this.setState(tempState)
+      if(typeof tempState.pronouns === "string"){
+        this.setState(tempState)
+      } else {
+        tempState.pronouns = tempState.pronouns.subject + "/" + tempState.pronouns.object + "/" + tempState.pronouns.possessive;
+        this.setState(tempState)
+      }
     } else {
       console.log("There was no local storage memory");
     }
